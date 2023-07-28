@@ -1,6 +1,7 @@
 import { styled } from "styled-components"
 import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
+import cart from "/src/assets/cart.png";
 const Div = styled.div`
 display:grid;
 grid-template-columns:1fr 1fr 1fr;
@@ -87,7 +88,7 @@ return (
                     <div className = "flex justify-between relative bottom-0 mt-auto">
                         <h5>{`Rating: ★${element["rating"]["rate"]}`}</h5>
                         <div className="flex mr-2">
-                            <img src = "./src/assets/cart.png" className="w-5 mr-4"></img>
+                            <img src = {cart} className="w-5 mr-4"></img>
                             
                             <button className = "bg-green-500 w-1/2" attri = {element["id"]} onClick={plusClick}>+</button>
 
