@@ -11,7 +11,8 @@ import Men from './Men';
 import Women from './Women';
 import Card2 from './Card2';
 import { Link } from 'react-router-dom';
-
+import left from "/src/assets/left.png";
+import back from "/src/assets/back.jpg";
 const Container = styled.div`
   display:flex;
   flex-direction:column;
@@ -26,7 +27,7 @@ const Container = styled.div`
   justify-content: ${(props)=>(props.name==="Products"||props.name ===undefined ? "center":"flex-start")};
   background-image: ${(props) =>
     props.name === "Products" || props.name === undefined
-      ? "url(./src/assets/back.jpg)"
+      ? `url(${back})`
       : ""};
   background-size: ${(props) =>
     props.name === "Products" || props.name === undefined
@@ -101,7 +102,7 @@ function App() {
         </Main>
         <Carts show = {show} className='pt-2 pl-2 pr-2'>
             <div className='flex '>
-              <img src = "./src/assets/left.png" className='h-8 w-8' onClick={()=>setShow(false)}></img>
+              <img src = {left} className='h-8 w-8' onClick={()=>setShow(false)}></img>
             <h2 className='text-center mr-auto ml-auto'>Cart items</h2>
             </div>
             <Card2 cart={cart} setCart = {setCart}/>

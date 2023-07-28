@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import './Display.css'
 import { Link } from 'react-router-dom';
+import men from "/src/assets/men's clothing.jpeg";
+import women from "/src/assets/women's clothing.jpeg";
+import electronics from "/src/assets/electronics.jpeg"
 
 const card1 = keyframes`
   0%{
@@ -41,7 +44,9 @@ function ProductDisplay({data}){
     element !== 'jewelery' ? (
      <Link to ={`/${element}`} key = {element}><Card1 key={element}>
         <h3>{element}</h3>
-        <img src={`./src/assets/${element}.jpeg`} style={{ height: '100%' }} alt={element} />
+        {element=="men's clothing"?(<img src={men} style={{ height: '100%' }} alt={element} />):
+        element=="women's clothing"?(<img src={women} style={{ height: '100%' }} alt={element} />):
+        element=="electronics"?(<img src={electronics} style={{ height: '100%' }} alt={element} />):null}
       </Card1></Link> 
     ) : null
   )}
