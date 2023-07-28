@@ -1,0 +1,73 @@
+#root {
+  width:100%;
+  margin: 0 auto;
+  
+  text-align: center;
+  min-height:100vh;
+}
+
+
+
+
+.lower1{
+  display:flex;
+  flex-direction: column;
+  align-items: center ;
+  gap:1em;
+  
+}
+.btn{
+  width:50%;
+  background-color: rgb(186, 79, 79);  
+  color:white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.btn {
+  background-color: rgb(186, 79, 79);
+  width: 50%;
+  transition: background-color 0.3s, width 0.3s;
+}
+
+.btn:hover {
+  background-color: red;
+  animation: expand 1s ease-in-out forwards;
+}
+
+@keyframes expand {
+  0% {
+    background-color: rgb(186, 79, 79);
+    width: 50%;
+  }
+  100% {
+    background-color: red;
+    width: 55%;
+  }
+}
+
+.btn:not(:hover) {
+  animation: shrink 1s ease-in-out forwards;
+}
+
+@keyframes shrink {
+  0% {
+    background-color: red;
+    width: 55%;
+  }
+  100% {
+    background-color: rgb(186, 79, 79);
+    width: 50%;
+  }
+}
+.lower1 h3{
+  color: black;
+}
+
+@keyframes Ani2 {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

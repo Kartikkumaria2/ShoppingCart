@@ -1,0 +1,27 @@
+.upper2{
+    display:flex;
+    justify-content: space-around;
+    padding-top:1em;
+    background-color: black;
+    color:whitesmoke;
+}
+.upper2 h3{
+    color: white;
+    padding:0;
+    margin:0;
+}
+@keyframes ani3 {
+    0% {
+        border-bottom: 0;
+        color:white;
+    }
+    100% {
+        color:red;
+        border-bottom: 2px solid red;
+    }
+}
+
+.upper2 h3:hover{
+    
+    animation: ani3 0.5s ease-in-out forwards;
+}
