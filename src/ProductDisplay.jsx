@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import './Display.css'
 import { Link } from 'react-router-dom';
-import men from "/src/assets/men's clothing.jpeg";
+import men from "/src/assets/men's clothing.jpg";
 import women from "/src/assets/women's clothing.jpeg";
 import electronics from "/src/assets/electronics.jpeg"
 
