@@ -22,7 +22,7 @@ function Card2({ cart, setCart }) {
 
       lengthOccurrences[id] = count;
 
-      return acc + item.price * count;
+      return acc + (item.price * count)/count;
     }, 0);
 
     setTotalPrice(total);
