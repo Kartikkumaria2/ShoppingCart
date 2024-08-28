@@ -2,72 +2,53 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 function Card2({ cart, setCart }) {
-  const [data, setData] = useState([]);
   const [displayed, setDisplayed] = useState({});
   const [length, setLength] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    async function getProductDataAndCalculateTotal() {
-      const fetchData = async (element) => {
-        const response = await fetch(`https://fakestoreapi.com/products/${element}`);
-        return response.json();
+    // Calculate the total price and update displayed items and lengths
+    const occurrences = {};
+    const lengthOccurrences = {};
+
+    const total = cart.reduce((acc, item) => {
+      const id = item.id;
+      const count = cart.filter((cartItem) => cartItem.id === id).length;
+
+      occurrences[id] = {
+        image: item.image,
+        title: item.title,
       };
 
-      const promises = cart.map(fetchData);
+      lengthOccurrences[id] = count;
 
-      try {
-        const productData = await Promise.all(promises);
-        setData(productData);
+      return acc + item.price * count;
+    }, 0);
 
-        // Calculate the total price within the same hook
-        const total = productData.reduce((acc, item) => {
-          const count = cart.filter((id) => id === item.id.toString()).length;
-          return acc + item.price * count;
-        }, 0);
-        setTotalPrice(total);
+    setTotalPrice(total);
+    setDisplayed(occurrences);
+    setLength(lengthOccurrences);
 
-        // Update displayed items and lengths
-        const occurrences = {};
-        const lengthOccurrences = {};
-
-        cart.forEach((element) => {
-          productData.forEach((ele) => {
-            if (ele.id === parseInt(element)) {
-              occurrences[ele.id] = {
-                image: ele.image,
-                title: ele.title,
-              };
-              lengthOccurrences[ele.id] = cart.filter((item) => item === element).length;
-            }
-          });
-        });
-
-        setDisplayed(occurrences);
-        setLength(lengthOccurrences);
-      } catch (error) {
-        console.error('Error fetching product data:', error);
-      }
-    }
-
-    getProductDataAndCalculateTotal();
   }, [cart]);
 
   const plusClick = function (e) {
     e.preventDefault();
-    setCart((prevCart) => [...prevCart, e.target.getAttribute('attri')]);
+    const itemId = e.target.getAttribute('attri');
+    const itemToAdd = cart.find(item => item.id.toString() === itemId);
+
+    setCart((prevCart) => [...prevCart, itemToAdd]);
   };
 
   const minusClick = function (e) {
     e.preventDefault();
-    let id = e.target.getAttribute('attri');
-    const itemIndex = cart.findIndex((item) => item === id);
+    const itemId = e.target.getAttribute('attri');
+    const itemIndex = cart.findIndex((item) => item.id.toString() === itemId);
 
     if (itemIndex !== -1) {
       const updatedCart = [...cart];
 
-      if (updatedCart.filter((item) => item === id).length > 1) {
-        const indexOfId = updatedCart.indexOf(id);
+      if (updatedCart.filter((item) => item.id.toString() === itemId).length > 1) {
+        const indexOfId = updatedCart.findIndex(item => item.id.toString() === itemId);
         updatedCart.splice(indexOfId, 1);
       } else {
         updatedCart.splice(itemIndex, 1);
@@ -79,7 +60,7 @@ function Card2({ cart, setCart }) {
 
   return (
     <>
-      {data.length !== 0 ? (
+      {cart.length !== 0 ? (
         Object.keys(displayed).map((element) => (
           <div key={element} className="flex flex-col h-60 mt-4 mb-4">
             <img src={displayed[element]["image"]} className="h-40" alt={`Product ${element}`} />
